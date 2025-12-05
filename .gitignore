@@ -1,0 +1,50 @@
+**Paste this:**
+```
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# Environment variables (IMPORTANT - NEVER upload!)
+.env
+*.env
+
+# Airflow
+airflow/logs/
+airflow/*.pid
+airflow/*.log
+
+# Data files (optional - you may want to keep sample data)
+# data/raw/*.csv
+# data/processed/*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Distribution
+dist/
+build/
+*.egg-info/
