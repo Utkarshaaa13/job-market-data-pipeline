@@ -3,11 +3,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from snowflake.connector import connect
-import os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
 
 # Page config
 st.set_page_config(
@@ -56,9 +51,9 @@ st.markdown("""
 @st.cache_resource
 def get_snowflake_connection():
     return connect(
-        user=os.getenv('SNOWFLAKE_USER'),
-        password=os.getenv('SNOWFLAKE_PASSWORD'),
-        account=os.getenv('SNOWFLAKE_ACCOUNT'),
+        user=st.secrets["SNOWFLAKE_USER"],
+        password=st.secrets["SNOWFLAKE_PASSWORD"],
+        account=st.secrets["SNOWFLAKE_ACCOUNT"],
         warehouse='COMPUTE_WH',
         database='JOB_ANALYTICS',
         schema='ANALYTICS'
