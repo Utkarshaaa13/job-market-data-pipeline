@@ -386,3 +386,4 @@ st.markdown("""
         <p style='margin: 5px 0 0 0; font-size: 12px; opacity: 0.9;'>Automated daily refresh at 00:00 UTC via Apache Airflow orchestration</p>
     </div>
 """, unsafe_allow_html=True)
+# Updated
