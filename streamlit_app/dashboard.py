@@ -73,8 +73,9 @@ st.markdown("<p style='text-align: center; color: #64748b; font-size: 16px; marg
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    total_jobs = load_data("SELECT COUNT(*) as count FROM JOB_LISTINGS_CLEAN")
-    st.metric("📊 Total Job Listings", f"{total_jobs['COUNT'][0]:,}")
+    with col1:
+    unique_jobs = load_data("SELECT COUNT(DISTINCT job_title, company) FROM JOB_LISTINGS_CLEAN")
+    st.metric("📊 Unique Job Listings", f"{unique_jobs['COUNT(DISTINCT JOB_TITLE, COMPANY)'][0]:,}")
 
 with col2:
     avg_salary = load_data("SELECT AVG((SALARY_MIN + SALARY_MAX)/2) as avg FROM JOB_LISTINGS_CLEAN WHERE SALARY_MIN IS NOT NULL")
