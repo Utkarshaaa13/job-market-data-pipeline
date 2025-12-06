@@ -201,19 +201,6 @@ streamlit run streamlit_app/dashboard.py
 
 ---
 
-## 📸 Screenshots
-
-### **Airflow Pipeline (All Tasks Successful)**
-![Airflow DAG](docs/screenshots/airflow-dag.png)
-
-### **Streamlit Dashboard**
-![Dashboard](docs/screenshots/streamlit-dashboard.png)
-
-### **Snowflake Data Warehouse**
-![Snowflake](docs/screenshots/snowflake-tables.png)
-
----
-
 ## 💡 What I Learned
 
 ### **Technical Skills:**
