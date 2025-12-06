@@ -31,7 +31,7 @@ This project takes raw job listing data and automatically transforms it into act
 
 ---
 
-## 🏗️ How It Works (Simple Flow)
+## 🏗️ Flow Diagram
 ```
 Step 1: CSV File (Raw Data)
    ↓
@@ -42,13 +42,8 @@ Step 3: Airflow → Runs automated transformations daily
 Step 4: Snowflake → Stores clean, analyzed data
    ↓
 Step 5: Streamlit Dashboard → Shows interactive charts
-```
 
-**Think of it like a factory:**
-- **Raw materials** = CSV file
-- **Assembly line** = Airflow pipeline
-- **Storage** = Snowflake database
-- **Showroom** = Streamlit dashboard
+```
 
 ---
 
@@ -83,24 +78,34 @@ job-market-pipeline/
 
 ## 🗄️ Data Architecture
 
-### **Two-Layer Design:**
+**Medallion Architecture (Two-Layer Implementation)**
 
-**Layer 1: RAW_DATA (Bronze)**
-- Stores exact copy of CSV
-- No changes to original data
-- Used for re-processing if needed
+This project uses the **Medallion Architecture** pattern - a modern data lakehouse design widely adopted by companies using Databricks, Snowflake, and cloud data platforms. This layered approach separates raw data from business-ready analytics tables, enabling data quality, reproducibility, and scalability.
 
-**Layer 2: ANALYTICS (Gold)**
-- Clean, transformed data
-- Ready for analysis
-- **Tables created:**
-  - `JOB_LISTINGS_CLEAN` - Parsed locations, skills arrays, salary averages
-  - `SALARY_BY_LOCATION` - Average salaries by city
-  - `SKILLS_DEMAND` - Most in-demand technical skills
-  - `COMPANY_INSIGHTS` - Top hiring companies and patterns
-  - `JOB_TYPE_ANALYSIS` - Remote vs on-site trends
+### **Layer 1: RAW_DATA (Bronze Layer)**
+- Stores exact copy of CSV data
+- No transformations applied
+- Immutable source of truth
+- Enables re-processing and auditing
+- **Table:** `JOB_LISTINGS_RAW`
 
----
+### **Layer 2: ANALYTICS (Gold Layer)**
+- Clean, transformed, business-ready data
+- Optimized for analysis and reporting
+- Aggregated tables for specific use cases
+
+**Tables created:**
+- `JOB_LISTINGS_CLEAN` - Deduplicated jobs with parsed locations, skills arrays, and salary calculations
+- `SALARY_BY_LOCATION` - Average salaries aggregated by city
+- `SKILLS_DEMAND` - Most in-demand technical skills with job counts
+- `COMPANY_INSIGHTS` - Top hiring companies and hiring patterns
+- `JOB_TYPE_ANALYSIS` - Distribution of remote vs on-site positions
+
+**Why this architecture?**
+- ✅ **Reproducibility:** Can rebuild Gold layer from Bronze anytime
+- ✅ **Data Quality:** Raw data preserved while analytics tables stay clean
+- ✅ **Scalability:** Easy to add Silver layer or new transformations as needed
+- ✅ **Industry Standard:** Same pattern used by Databricks, Snowflake, AWS
 
 ## 🔄 Pipeline Workflow (What Airflow Does)
 ```
@@ -146,20 +151,22 @@ job-market-pipeline/
 
 ## 📊 Dashboard vs Business Intelligence Tools
 
-**Question: Why Streamlit and not Tableau?**
+Built with Streamlit - a Python framework for creating interactive data dashboards.
+Features:
 
-| Feature | Tableau | Streamlit (What I Built) |
-|---------|---------|--------------------------|
-| **Cost** | Expensive ($$$) | Free ✅ |
-| **Setup** | Desktop installation | Cloud-hosted |
-| **Connection** | Connects to Snowflake | Connects to Snowflake |
-| **Coding** | Drag-and-drop | Python code |
-| **For this project** | Not needed | Perfect for portfolio! ✅ |
+Real-time KPIs: Total jobs, average salary, top city, active companies
+Interactive Charts:
 
-**Both connect to Snowflake (the data warehouse), NOT Airflow.**
-- Airflow = Runs the pipeline
-- Snowflake = Stores the data
-- Streamlit/Tableau = Shows the charts
+Top 10 cities by salary (horizontal bar chart)
+Most in-demand skills (horizontal bar chart)
+Job type distribution (donut chart)
+Top hiring companies (vertical bar chart)
+Salary progression by experience (bar chart with insights)
+
+
+Direct Snowflake Connection: Queries live data from analytics tables
+Cloud Hosted: Free deployment on Streamlit Cloud
+Auto-refresh: Updates when pipeline runs
 
 ---
 
@@ -210,53 +217,33 @@ streamlit run streamlit_app/dashboard.py
 ## 💡 What I Learned
 
 ### **Technical Skills:**
-- Building production-grade data pipelines
-- Orchestrating complex workflows with Airflow
-- Designing star schema data models
-- Writing efficient SQL transformations
-- Containerization with Docker
-- Cloud data warehousing with Snowflake
-- Interactive dashboards with Python
+- Building end-to-end data pipelines from scratch
+- Orchestrating complex workflows with Apache Airflow
+- Designing star schema data models for analytics
+- Writing efficient SQL transformations in Snowflake
+- Containerizing applications with Docker
+- Creating interactive dashboards with Python
+- Deploying cloud-based data solutions
 
-### **Real-World Challenges Solved:**
-1. **Duplicate Data:** Added deduplication logic to remove 83 duplicate records
-2. **Data Quality:** Filtered out 0 invalid salary entries
-3. **Idempotency:** Used TRUNCATE-INSERT pattern for safe re-runs
-4. **Performance:** Batch inserts (1000 rows/batch) for speed
-5. **Scalability:** Separated RAW and ANALYTICS layers for growth
+### **Real-World Problem Solving:**
+- **Data Quality:** Filtered invalid salary entries and handled NULL values
+- **Deduplication:** Removed 83 duplicate records using SQL window functions
+- **Idempotency:** Designed pipeline to run safely multiple times using TRUNCATE-INSERT pattern
+- **Performance:** Implemented batch processing (1000 rows/batch) for faster data loading
+- **Scalability:** Built two-layer architecture (RAW → ANALYTICS) for future growth
+- **Debugging:** Resolved Docker resource constraints and Snowflake connection issues
+- **Automation:** Scheduled daily pipeline runs with retry logic and error handling
 
----
 
-## 🔮 Future Enhancements
 
-- [ ] Add CI/CD pipeline with GitHub Actions
-- [ ] Implement incremental loading (only new data)
-- [ ] Add Great Expectations for data quality tests
-- [ ] Build ML model for salary prediction
-- [ ] Add email alerts on pipeline failures
-- [ ] Deploy Airflow to Astronomer Cloud
-
----
-
-## 📁 Key Files
-
-| File | Purpose |
-|------|---------|
-| `airflow/dags/job_data_pipeline.py` | Main pipeline orchestration |
-| `sql/transformations/clean_job_data.sql` | Data cleaning logic |
-| `streamlit_app/dashboard.py` | Interactive dashboard |
-| `scripts/load_initial_data.py` | CSV to Snowflake loader |
-| `docker-compose.yml` | Airflow container setup |
-
----
 
 ## 👨‍💻 Author
 
 **Utkarsha Chandgadkar**
 
 - GitHub: [@Utkarshaaa13](https://github.com/Utkarshaaa13)
-- LinkedIn: [Your Profile](YOUR_LINKEDIN_URL)
-- Email: your.email@example.com
+- LinkedIn: [Your Profile](https://www.linkedin.com/in/utkarsha13/)
+- Email: utkarshachandgadkar@gmail.com
 
 ---
 
@@ -266,7 +253,7 @@ This project is open source and available under the MIT License.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments ##
 
 - Apache Airflow community for excellent documentation
 - Snowflake for cloud data warehouse platform
