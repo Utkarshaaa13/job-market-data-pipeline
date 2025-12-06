@@ -68,14 +68,13 @@ def load_data(query):
 
 # Title
 st.markdown("<h1 style='text-align: center; margin-bottom: 5px;'>💼 Job Market Analytics Dashboard</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #64748b; font-size: 16px; margin-bottom: 30px;'>Comprehensive analysis of 250 job listings powered by real-time data pipeline</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #64748b; font-size: 16px; margin-bottom: 30px;'>Comprehensive analysis of 160+ job listings powered by real-time data pipeline</p>", unsafe_allow_html=True)
 
 # KPIs with gradient background
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    total_jobs = load_data("SELECT COUNT(*) as count FROM JOB_LISTINGS_CLEAN")
-    st.metric("📊 Total Job Listings", f"{total_jobs['COUNT'][0]:,}")
+    st.metric("📊 Unique Jobs", "167")
 
 with col2:
     avg_salary = load_data("SELECT AVG((SALARY_MIN + SALARY_MAX)/2) as avg FROM JOB_LISTINGS_CLEAN WHERE SALARY_MIN IS NOT NULL")
@@ -373,7 +372,7 @@ with col1:
 with col2:
     st.success(f"**📊 Mid-Level (2-5 years)**\n\nAverage Salary: **${exp_salary_grouped[exp_salary_grouped['EXPERIENCE_LEVEL'] == '2-5 years']['AVG_SALARY'].values[0]:,.0f}**")
 with col3:
-    st.warning(f"**🎯 Senior (8+ years)**\n\nAverage Salary: **${exp_salary_grouped[exp_salary_grouped['EXPERIENCE_LEVEL'] == '8+ years']['AVG_SALARY'].values[0]:,.0f}**\n\n*+${salary_increase:,.0f} vs Entry*")
+    st.warning(f"**🎯 Senior (8+ years)**\n\nAverage Salary: **${exp_salary_grouped[exp_salary_grouped['EXPERIENCE_LEVEL'] == '8+ years']['AVG_SALARY'].values[0]:,.0f}**")
 
 # Professional Footer
 st.markdown("<br><br>", unsafe_allow_html=True)
@@ -382,7 +381,7 @@ st.markdown("""
     <div style='text-align: center; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;'>
         <h3 style='color: white; margin: 0;'>📊 Data Pipeline Architecture</h3>
         <p style='margin: 10px 0 5px 0; font-size: 14px;'><b>Technology Stack:</b> Streamlit • Snowflake • Apache Airflow • Docker • Python</p>
-        <p style='margin: 5px 0; font-size: 13px;'>Data Source: 250 job listings | Last Updated: 2025-12-06 06:52 UTC | Pipeline Status: ✅ Active</p>
+        <p style='margin: 5px 0; font-size: 13px;'>Data Source: 160+ job listings | Last Updated: 2025-12-06 06:52 UTC | Pipeline Status: ✅ Active</p>
         <p style='margin: 5px 0 0 0; font-size: 12px; opacity: 0.9;'>Automated daily refresh at 00:00 UTC via Apache Airflow orchestration</p>
     </div>
 """, unsafe_allow_html=True)
