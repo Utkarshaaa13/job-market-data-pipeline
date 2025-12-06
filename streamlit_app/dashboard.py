@@ -371,7 +371,7 @@ with col1:
 with col2:
     st.success(f"**📊 Mid-Level (2-5 years)**\n\nAverage Salary: **${exp_salary_grouped[exp_salary_grouped['EXPERIENCE_LEVEL'] == '2-5 years']['AVG_SALARY'].values[0]:,.0f}**")
 with col3:
-    st.warning(f"**🎯 Senior (8+ years)**\n\nAverage Salary: **${exp_salary_grouped[exp_salary_grouped['EXPERIENCE_LEVEL'] == '8+ years']['AVG_SALARY'].values[0]:,.0f}**\n\n*+${salary_increase:,.0f} vs Entry*")
+    st.warning(f"**🎯 Senior (8+ years)**\n\nAverage Salary: **${exp_salary_grouped[exp_salary_grouped['EXPERIENCE_LEVEL'] == '8+ years']['AVG_SALARY'].values[0]:,.0f}**")
 
 # Professional Footer
 st.markdown("<br><br>", unsafe_allow_html=True)
