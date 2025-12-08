@@ -105,7 +105,6 @@ This project uses the **Medallion Architecture** pattern - a modern data lakehou
 - ✅ **Reproducibility:** Can rebuild Gold layer from Bronze anytime
 - ✅ **Data Quality:** Raw data preserved while analytics tables stay clean
 - ✅ **Scalability:** Easy to add Silver layer or new transformations as needed
-- ✅ **Industry Standard:** Same pattern used by Databricks, Snowflake, AWS
 
 ## 🔄 Pipeline Workflow (What Airflow Does)
 ```
