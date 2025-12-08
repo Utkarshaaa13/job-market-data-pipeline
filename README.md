@@ -27,7 +27,7 @@ This project takes raw job listing data and automatically transforms it into act
 | **Highest Paying Skill** | Cloud Architecture ($145,000+) |
 | **Top Hiring Company** | DataInc (100 positions) |
 | **Salary Growth** | Entry level: $99,974 → Senior: $155,122 (+55%) |
-| **Job Types** | Remote: 22% | Full-time: 19% | Contract: 20% |
+| **Job Types** | Remote: 26.4 % | Full-time: 25.5% | Contract: 24% |
 
 ---
 
@@ -206,7 +206,7 @@ streamlit run streamlit_app/dashboard.py
 ### **Technical Skills:**
 - Building end-to-end data pipelines from scratch
 - Orchestrating complex workflows with Apache Airflow
-- Designing star schema data models for analytics
+- Designing data models for analytics
 - Writing efficient SQL transformations in Snowflake
 - Containerizing applications with Docker
 - Creating interactive dashboards with Python
