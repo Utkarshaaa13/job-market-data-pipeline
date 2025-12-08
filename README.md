@@ -106,7 +106,7 @@ This project uses the **Medallion Architecture** pattern - a modern data lakehou
 - ✅ **Data Quality:** Raw data preserved while analytics tables stay clean
 - ✅ **Scalability:** Easy to add Silver layer or new transformations as needed
 
-## 🔄 Pipeline Workflow (What Airflow Does)
+## 🔄 Pipeline Workflow 
 ```
 ┌─────────────┐
 │    Start    │
